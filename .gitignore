@@ -1,0 +1,3 @@
+# Release archives live in this folder for convenience but are distributed as
+# GitHub Release assets, not committed to git history (they are large binaries).
+*.zip

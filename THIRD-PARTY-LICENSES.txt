@@ -1,0 +1,95 @@
+J16c - Third-Party Licenses
+===========================
+
+J16c itself is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The distributed application and its plugins include or use the third-party
+components listed below. Each remains under its own license; those licenses
+are reproduced or referenced here as required. Nothing below changes the
+license of J16c's own source code.
+
+--------------------------------------------------------------------------------
+1. Qt 6 (Qt6Core, Qt6Gui, Qt6Widgets, Qt6Network, Qt6Sql, Qt6Svg + platform
+   plugins: platforms, sqldrivers, imageformats, iconengines, styles, tls,
+   generic, networkinformation)
+--------------------------------------------------------------------------------
+   License : GNU Lesser General Public License, version 3 (LGPLv3)
+   Linking : Dynamic. The Qt libraries are shipped as separate .dll files and
+             are not statically linked into J16c. Under the LGPLv3, users may
+             replace these Qt DLLs with their own compatible build.
+   Source  : https://www.qt.io/  |  https://code.qt.io/
+   Text    : https://www.gnu.org/licenses/lgpl-3.0.html
+   Notice  : Qt is (C) The Qt Company Ltd and other contributors.
+
+--------------------------------------------------------------------------------
+2. The Sleuth Kit (TSK) - forensic filesystem library (statically linked)
+--------------------------------------------------------------------------------
+   License : Common Public License 1.0 and IBM Public License 1.0 (core
+             filesystem/volume code), Apache License 2.0, and 3-Clause BSD
+             (individual files, e.g. tsk/fs/lzvn.c).
+   Linking : Static (compiled into J16c.exe).
+   Source  : https://github.com/sleuthkit/sleuthkit
+   Text    : Full per-file license texts are included in the source tree under
+             external/sleuthkit/licenses/ (cpl1.0.txt, IBM-LICENSE,
+             Apache-LICENSE-2.0.txt, bsd.txt). These licenses are file-level and
+             do not require J16c's own code to adopt them.
+   Notice  : The Sleuth Kit is (C) Brian Carrier and other contributors.
+
+--------------------------------------------------------------------------------
+3. libpl - ImHex Pattern Language runtime (libpl.dll)
+--------------------------------------------------------------------------------
+   License : GNU Lesser General Public License, version 2.1 (LGPLv2.1)
+             (verify against the upstream release you ship).
+   Linking : Dynamic, and loaded only by the optional "Structure Viewer" plugin
+             (structure_viewer.dll) - not by the J16c core executable.
+   Source  : https://github.com/WerWolv/PatternLanguage
+   Text    : https://www.gnu.org/licenses/lgpl-2.1.html
+   Notice  : Pattern Language is (C) WerWolv and contributors.
+
+--------------------------------------------------------------------------------
+4. smartmontools - smartctl.exe (S.M.A.R.T. reader)
+--------------------------------------------------------------------------------
+   License : GNU General Public License, version 2 or later (GPLv2+)
+   Linking : None. smartctl.exe is a separate, unmodified executable that J16c
+             invokes as a child process (mere aggregation). It is not linked
+             into J16c, and its GPL does not extend to J16c's own code.
+   Source  : https://www.smartmontools.org/  (source available from the project;
+             the exact version's source can be provided on request)
+   Text    : https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+   Notice  : smartmontools is (C) Bruce Allen, Christian Franke and contributors.
+
+--------------------------------------------------------------------------------
+5. MinGW-w64 runtime (libgcc_s_seh-1.dll, libstdc++-6.dll, libwinpthread-1.dll)
+--------------------------------------------------------------------------------
+   License : libgcc / libstdc++ - GPLv3 WITH the GCC Runtime Library Exception,
+             which explicitly permits distribution alongside software under any
+             license. libwinpthread - permissive MinGW-w64 license (MIT/BSD-style
+             / public-domain-equivalent).
+   Linking : Dynamic (runtime DLLs).
+   Source  : https://www.mingw-w64.org/  |  https://gcc.gnu.org/
+   Text    : https://www.gnu.org/licenses/gcc-exception-3.1.html
+
+--------------------------------------------------------------------------------
+6. opengl32sw.dll - Mesa 3D software OpenGL rasterizer (shipped by Qt)
+--------------------------------------------------------------------------------
+   License : MIT License
+   Source  : https://www.mesa3d.org/
+   Text    : https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/docs/license.rst
+
+--------------------------------------------------------------------------------
+7. D3Dcompiler_47.dll - Microsoft Direct3D shader compiler (shipped by Qt)
+--------------------------------------------------------------------------------
+   License : Microsoft redistributable component (part of the Windows SDK /
+             DirectX runtime). Distributed under Microsoft's redistribution
+             terms; included by Qt's deployment tooling (windeployqt).
+   Source  : https://www.microsoft.com/
+
+--------------------------------------------------------------------------------
+Notes
+--------------------------------------------------------------------------------
+- LGPL components (Qt, libpl) are dynamically linked and shipped as replaceable
+  DLLs, satisfying the LGPL relinking requirement.
+- The GPL'd smartctl.exe is a separate program invoked at runtime; it is not
+  combined with J16c into a single work.
+- This file is provided for informational and compliance purposes and is not
+  legal advice.
