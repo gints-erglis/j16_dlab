@@ -2,3 +2,4 @@
 # as GitHub Release assets, not committed to git history (they are large binaries).
 releases/
 *.zip
+*.exe

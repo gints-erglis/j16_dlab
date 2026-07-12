@@ -1,12 +1,12 @@
-J16c - Third-Party Licenses
+J16 Data Lab - Third-Party Licenses
 ===========================
 
-J16c itself is licensed under the Apache License, Version 2.0 (see LICENSE).
+J16 Data Lab itself is licensed under the Apache License, Version 2.0 (see LICENSE).
 
 The distributed application and its plugins include or use the third-party
 components listed below. Each remains under its own license; those licenses
 are reproduced or referenced here as required. Nothing below changes the
-license of J16c's own source code.
+license of J16 Data Lab's own source code.
 
 --------------------------------------------------------------------------------
 1. Qt 6 (Qt6Core, Qt6Gui, Qt6Widgets, Qt6Network, Qt6Sql, Qt6Svg + platform
@@ -90,6 +90,6 @@ Notes
 - LGPL components (Qt, libpl) are dynamically linked and shipped as replaceable
   DLLs, satisfying the LGPL relinking requirement.
 - The GPL'd smartctl.exe is a separate program invoked at runtime; it is not
-  combined with J16c into a single work.
+  combined with J16 Data Lab into a single work.
 - This file is provided for informational and compliance purposes and is not
   legal advice.

@@ -4,6 +4,23 @@ All notable changes to J16 Data Lab are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com), and the
 project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
+## [0.1.1] - 2026-07-12
+
+User-interface polish for the main window.
+
+### Added
+- Collapsible left navigation panel: a chevron button (next to Refresh) collapses
+  it to a slim strip; click the strip's chevron to restore it.
+
+### Changed
+- The detail tabs (Drive, Hex, Preferences, Case) now share a single flat row.
+  Opening Preferences or a Case no longer creates a nested second row of tabs.
+
+### Fixed
+- The main splitter no longer lets the left panel be dragged over the detail
+  region and hide it — both sides keep a sensible minimum width, and the divider
+  shows hover feedback.
+
 ## [0.1.0] - 2026-07-11
 
 First public release (Windows x64, portable).
