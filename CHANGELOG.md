@@ -4,6 +4,19 @@ All notable changes to J16 Data Lab are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com), and the
 project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
+## [0.2.0] - 2026-09-02
+
+### Added
+- Full scan
+
+### Changed
+- Plugins UI
+
+### Fixed
+- SMART: Exit status is a bit mask, not an enum. Values combining "device open failed" with useful data were being discarded - which mostly affected dying drives behind USB bridges, exactly the ones that matter. The reader now judges the payload, not the status word, and treats smartctl's own DISK FAILING bit as a failure signal.
+- SMART: Capabilities come from the device. Polling times and self-test support are read from the SMART data buffer the app already holds, so the Self-Tests tab works on USB bridges that smartctl cannot open at all.
+
+
 ## [0.1.1] - 2026-07-12
 
 User-interface polish for the main window.
