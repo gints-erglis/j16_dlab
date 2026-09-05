@@ -4,6 +4,40 @@ All notable changes to J16 Data Lab are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com), and the
 project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
+## [0.3.0] - 2026-09-05
+
+### Added
+- Reassembly of bifragmented files: **Reassemble fragmented ZIP..** and **Reassemble
+  fragmented MP4s..** on the findings tree's type rows. A ZIP join is proved by the
+  archive's own CRC32; an MP4 join is checked against its sample table (which proves the
+  layout, not the content).
+- Verification of carved archives and video against their own indexes, which also reports
+  a file whose structure is intact but whose data was overwritten.
+- Export subfolders **by confidence** (`1-assembled` ... `6-unrated`), numbered so the
+  trustworthy set sorts first. `manifest.csv` gained a `fragments` column.
+- Full scan reports filesystem records when the Filesystems branch is selected.
+- Update notice: a link in the status bar only when a newer release exists, an answer on
+  demand in **Help > About**, and a toggle in **View > Preferences > Updates**. It sends
+  nothing about the machine or its cases.
+
+### Changed
+- **Plugins no longer add commands to the case.** Everything the Video Assembler does is
+  now in one view under **Tools**, over a drive or image chosen in the drive list. A case
+  looks the same whether a plugin is installed or not.
+- The video recovery engines moved into the plugin itself, so without the plugin the
+  capability is absent rather than hidden.
+- Tasks panel: Progress is a fixed-width column; Status takes the remaining space.
+
+### Fixed
+- The Filesystems checkbox in the scan dialog can be clicked in both scan modes; it was
+  disabled in Full mode and showed a tick that could not be cleared.
+- Stop now works for both reassembly tasks.
+
+### Upgrade note
+- Update the Video Assembler plugin to **2.0.0**. An older copy still loads but registers
+  a command the application no longer shows, so it appears to do nothing.
+
+
 ## [0.2.0] - 2026-09-02
 
 ### Added
