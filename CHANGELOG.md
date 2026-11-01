@@ -6,12 +6,6 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
 ## [0.6.0] - 2026-10-31
 
-### Upgrade note
-- **NAND Reconstructor: a *solution* is now a *project*** (`<name>.j16prj`, the *Project*
-  menu). An older `card.json` still opens and is kept as `card.json.bak` on the next save;
-  a saved solution opens with *Project > Open project..*. The plugin interface did not
-  change: v0.5.0 plugins still install, and the new ones install on v0.5.0.
-
 ### Added
 - **J16 Timeline Viewer** (`TimelineViewer.exe`, Start menu): what happened to every file
   of a FAT32 card - made, rewritten, deleted, moved - ordered by the card's own evidence
@@ -47,6 +41,10 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
   the Windows storage service does not answer. Bus names for SD, MMC, SAS, RAID, iSCSI
   and virtual disks.
 - NAND Reconstructor: *Date blocks* is now *Sort blocks (write order)..*.
+- NAND Reconstructor: a *solution* is now a *project*** (`<name>.j16prj`, the *Project*
+  menu). An older `card.json` still opens and is kept as `card.json.bak` on the next save;
+  a saved solution opens with *Project > Open project..*. The plugin interface did not
+  change: v0.5.0 plugins still install, and the new ones install on v0.5.0.
 
 ### Fixed
 - Writing an image to a card that came formatted wrote only the sectors before its
