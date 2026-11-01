@@ -8,11 +8,11 @@ health, and reassemble fragmented video - extensible through plugins.
 
 Grab the latest package from this repository (or the **Releases** page):
 
-- **`J16_DataLab-v0.5.0-setup.exe`** - the installable application (Windows x64).
+- **`J16_DataLab-v0.6.0-setup.exe`** - the installable application (Windows x64).
 
 ## Install & run
 
-1. Launch **`J16_DataLab-v0.5.0-setup.exe`**. Reading physical drives requires running as
+1. Launch **`J16_DataLab-v0.6.0-setup.exe`**. Reading physical drives requires running as
    **Administrator**.
 
 ## Features
@@ -23,22 +23,29 @@ Grab the latest package from this repository (or the **Releases** page):
   files - a ZIP join is proved by the archive's own CRC32, an MP4 join is checked
   against its sample table. Export carries a manifest with MD5s.
 - Case workflow (`.j16case`) with findings, hex/structure inspection, submap.
+- **J16 Timeline Viewer** (`TimelineViewer.exe`): what happened to every file of a FAT32
+  card, ordered by causes rather than clocks, each event marked fact or inference;
+  HTML/CSV report. Built from a card's image file or opened from a NAND reconstruction's
+  timeline file.
 - Apple (APFS) recovery inside a case: FileVault unlock, repair of a filesystem that will
   not mount, and extraction with an account of what did not come out whole.
 - S.M.A.R.T. health (via smartctl) and disk info.
 - Open a raw `.img` as a pseudo-disk; mount/unmount.
 - **Video Assembler** plugin (Tools menu): for video the file carver cannot name -
   unindexed or truncated containers, raw H.264 streams, CCTV/DVR frame streams and
-  orphan moov/mdat halves. Rebuilds a missing index, wraps an elementary stream,
-  reconstructs a frame stream, or repairs against a reference file from the same device.
+  orphan moov/mdat halves, and recordings cut before the camera wrote any header.
+  Rebuilds a missing index, wraps an elementary stream, reconstructs a frame stream,
+  repairs against a reference file from the same device (sound included), or joins a
+  header with the media it was written for.
 - **NAND Reconstructor** plugin (Tools menu): rebuilds a logical image from raw NAND
-  chip dumps.
+  chip dumps; finds the recipe for a card from its dumps and assembles every video from
+  one version of its data.
 - **RAID** plugin (Tools menu): binds image files and physical drives into one virtual
   disk. First shape: an Apple Fusion Drive.
 
 ## Bug reports & feedback
 
-Please open an **Issue** with the version (e.g. `v0.5.0`), your Windows version,
+Please open an **Issue** with the version (e.g. `v0.6.0`), your Windows version,
 steps to reproduce, and what you expected vs. what happened.
 
 ## License

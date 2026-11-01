@@ -4,6 +4,64 @@ All notable changes to J16 Data Lab are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com), and the
 project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
+## [0.6.0] - 2026-10-31
+
+### Upgrade note
+- **NAND Reconstructor: a *solution* is now a *project*** (`<name>.j16prj`, the *Project*
+  menu). An older `card.json` still opens and is kept as `card.json.bak` on the next save;
+  a saved solution opens with *Project > Open project..*. The plugin interface did not
+  change: v0.5.0 plugins still install, and the new ones install on v0.5.0.
+
+### Added
+- **J16 Timeline Viewer** (`TimelineViewer.exe`, Start menu): what happened to every file
+  of a FAT32 card - made, rewritten, deleted, moved - ordered by the card's own evidence
+  rather than its clocks. Each event is a fact or an inference and says where its bytes
+  are. *Lanes* and *Table* views, HTML/CSV report. *Build from image..* reads a card's
+  image file; *Open..* takes the timeline a NAND reconstruction wrote. No administrator
+  rights needed; a timeline is a file of its own, not part of a case.
+- Contradiction events (a creation time that changed, a write time that went back) and
+  *Flash ahead* events (the flash holds a newer, larger copy of an entry than the image).
+- **NAND Reconstructor 1.3.0:**
+  - *Find recipe..* tests every known recipe on a card's own dumps (markers, key, chip)
+    and puts each dump in its role. About 0.2 s; the right recipe scored 0.83, the others
+    0.00.
+  - The first *Assemble* derives the card's file-system checks from the image instead of
+    needing a hand-written file.
+  - Every video is assembled from one version of its data, and laid out by its own sample
+    table: fragments, a file past the end of the volume, shared clusters, a stretch whose
+    right version is another flash copy. 99.7 % of the video samples on the reference
+    card came out right.
+  - *Run > Timeline JSON..* writes a unit-mapped card's timeline for the Timeline Viewer.
+  - The page table shows each sector as Data / SA / ECC.
+- **Video Assembler 2.2.0:**
+  - Finds a **recording without a header** - a card pulled while the camera recorded -
+    by its H.264 frames alone, including runs with audio chunks between them.
+  - *Repair using a reference file..* rebuilds on the reference's own index and **keeps
+    the sound** (PCM); a Canon `.MOV` stays a `.MOV`.
+  - *Join with its media (mdat)..* / *Join all headers with their media..* put a finished
+    clip's header and media back together when they lie apart (Canon `.MOV` + `.DAT`).
+    The media is picked by checking frames spread over the clip; all tracks are kept.
+
+### Changed
+- SD cards in USB card readers appear in the drive list, and the list still fills when
+  the Windows storage service does not answer. Bus names for SD, MMC, SAS, RAID, iSCSI
+  and virtual disks.
+- NAND Reconstructor: *Date blocks* is now *Sort blocks (write order)..*.
+
+### Fixed
+- Writing an image to a card that came formatted wrote only the sectors before its
+  partition and still reported success. The target's volumes are now locked and taken
+  offline for the write, and a failed write stops the copy with the sector and the reason.
+- The video scan joined a Canon header to the next clip's media and called it complete;
+  a header is now kept with the media behind it only if its own frames are there.
+- A header with an index but no media was labelled *no index*.
+
+### Known limits
+- The timeline reads FAT32 only. NAND layout by sample table covers MP4/MOV with the
+  index at the start, on FAT32.
+- Reference repair rebuilds PCM sound only (AAC is left out, video kept); B-frame streams
+  lose their display order; H.265 references are refused.
+
 ## [0.5.0] - 2026-10-12
 
 ### Upgrade note
