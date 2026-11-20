@@ -4,15 +4,72 @@ All notable changes to J16 Data Lab are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com), and the
 project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
+## [0.7.0] - 2026-11-20
+
+### Upgrade note
+- **The plugins need a licence file and a new version.** Video Assembler, NAND
+  Reconstructor, RAID and JPEG Repair each need a licence file for the computer they run
+  on. The plugin interface changed: the v0.6.0 plugins do not install on this version.
+  Use Video Assembler 2.3.0, NAND Reconstructor 1.4.0, RAID 0.2.0 and JPEG Repair 0.3.0,
+  from *Plugins > Install..* after upgrading.
+
+### Added
+- **Licensed plugins.** Without a licence file a plugin's view shows the computer's code;
+  enter it on the licence's downloads page, download the licence file and load it (or
+  drop it on the view). A licence covers the versions released until its updates end;
+  those keep working afterwards. The check runs on the computer and sends nothing.
+  *View > Plugins* shows whom each licence is for and until when updates are included.
+- **JPEG Repair plugin, first version (0.3.0):** decodes a damaged photograph MCU by MCU
+  and shows which parts came from the file, where decoding broke and what is missing.
+  Restart markers let decoding pick up after the damage. *Repair* puts back what follows
+  the damage, also without restart markers, corrects the colour shift, fixes single-bit
+  errors and a wrong picture size in the header, and saves a PNG with a mask of where
+  each part came from. Reads baseline and progressive JPEG.
+- **Structure Viewer reads video files**: MP4/MOV, AVI, MPEG-TS/M2TS, MKV/WebM and raw
+  H.264/H.265 streams, as a tree beside the bytes, the template picked by the file's
+  signature. Files of any size open at once (only what is shown is read). Each tree
+  marks what a recovery needs to know: a box or chunk cut at the end, an index that
+  points outside the file's media data, a missing moov or Cues, a partial TS packet,
+  and the first NAL units of the video. The templates are in [`templates/`](templates/).
+- **Structure Viewer reads images**: JPEG, PNG and BMP. JPEG: Exif camera, serial number,
+  dates, GPS position and thumbnail; restart markers out of order or missing, no end of
+  image, another JPEG inside the scan, an MPF second image or a motion-photo video after
+  it. PNG: every chunk's CRC checked, so the damaged chunk is named. BMP: in a cut file,
+  how many pixel rows are left and which part of the picture they are.
+- **A disk in a USB enclosure shows its own model, serial number and firmware** instead of
+  the enclosure bridge's, in the drive list and in a new case (SATA through most
+  enclosures; NVMe through Realtek, JMicron and ASMedia bridges). A case made with the
+  bridge's serial number still finds its disk.
+
+### Changed
+- Every list and table selects the same way: the whole row in the accent colour.
+
+### Fixed
+- **Copying from an attached Windows disk copied this computer's files.** Links in a
+  Windows disk's user folders (*Application Data*, *My Documents*, a redirected
+  *Desktop*) point at `C:`, and the filesystem browser followed them to the examiner's own
+  disk. Links are now shown as *(link)* with their target, never opened or copied, and
+  listed in the log. `.lnk` shortcuts are copied as files.
+
 ## [0.6.0] - 2026-10-31
+
+### Upgrade note
+- NAND Reconstructor: a *solution* is now a *project* (`<name>.j16prj`, the *Project*
+  menu). An older `card.json` still opens and is kept as `card.json.bak` on the next save;
+  a saved solution opens with *Project > Open project..*. The plugin interface did not
+  change: v0.5.0 plugins still install, and the new ones install on v0.5.0.
 
 ### Added
 - **J16 Timeline Viewer** (`TimelineViewer.exe`, Start menu): what happened to every file
   of a FAT32 card - made, rewritten, deleted, moved - ordered by the card's own evidence
   rather than its clocks. Each event is a fact or an inference and says where its bytes
   are. *Lanes* and *Table* views, HTML/CSV report. *Build from image..* reads a card's
-  image file; *Open..* takes the timeline a NAND reconstruction wrote. No administrator
+  image file; *Open..* takes the timeline a NAND reconstruction wrote; in a case, a FAT32
+  finding's *Timeline JSON..* writes one and opens it in the viewer. No administrator
   rights needed; a timeline is a file of its own, not part of a case.
+- Recordings grouped by the camera's counter number; *unfinished* and *atypical* recordings
+  and counter gaps marked against the form the card's recordings usually take; PC writes
+  told from the camera's.
 - Contradiction events (a creation time that changed, a write time that went back) and
   *Flash ahead* events (the flash holds a newer, larger copy of an entry than the image).
 - **NAND Reconstructor 1.3.0:**
@@ -41,10 +98,6 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
   the Windows storage service does not answer. Bus names for SD, MMC, SAS, RAID, iSCSI
   and virtual disks.
 - NAND Reconstructor: *Date blocks* is now *Sort blocks (write order)..*.
-- NAND Reconstructor: a *solution* is now a *project*** (`<name>.j16prj`, the *Project*
-  menu). An older `card.json` still opens and is kept as `card.json.bak` on the next save;
-  a saved solution opens with *Project > Open project..*. The plugin interface did not
-  change: v0.5.0 plugins still install, and the new ones install on v0.5.0.
 
 ### Fixed
 - Writing an image to a card that came formatted wrote only the sectors before its
@@ -122,6 +175,7 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 - LZFSE and LZBITMAP compression are not decoded; such a file is written as its `.decmpfs`
   payload and named in `extraction.log`.
 - The RAID plugin assembles Apple Fusion Drives only.
+
 ## [0.4.0] - 2026-09-07
 
 ### Added
@@ -164,6 +218,10 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 
 ## [0.3.0] - 2026-09-05
 
+### Upgrade note
+- Update the Video Assembler plugin to **2.0.0**. An older copy still loads but registers
+  a command the application no longer shows, so it appears to do nothing.
+
 ### Added
 - Reassembly of bifragmented files: **Reassemble fragmented ZIP..** and **Reassemble
   fragmented MP4s..** on the findings tree's type rows. A ZIP join is proved by the
@@ -191,11 +249,6 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
   disabled in Full mode and showed a tick that could not be cleared.
 - Stop now works for both reassembly tasks.
 
-### Upgrade note
-- Update the Video Assembler plugin to **2.0.0**. An older copy still loads but registers
-  a command the application no longer shows, so it appears to do nothing.
-
-
 ## [0.2.0] - 2026-09-02
 
 ### Added
@@ -207,7 +260,6 @@ project uses [Semantic Versioning](https://semver.org) (`vMAJOR.MINOR.PATCH`).
 ### Fixed
 - SMART: Exit status is a bit mask, not an enum. Values combining "device open failed" with useful data were being discarded - which mostly affected dying drives behind USB bridges, exactly the ones that matter. The reader now judges the payload, not the status word, and treats smartctl's own DISK FAILING bit as a failure signal.
 - SMART: Capabilities come from the device. Polling times and self-test support are read from the SMART data buffer the app already holds, so the Self-Tests tab works on USB bridges that smartctl cannot open at all.
-
 
 ## [0.1.1] - 2026-07-12
 
